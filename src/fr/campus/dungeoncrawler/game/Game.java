@@ -12,7 +12,7 @@ public class Game {
                     Character character = menu.createCharacter();
                     if (character != null) {
                         System.out.println("Personnage créé: ");
-                       menu.manageCharacter(character);//on gère le personnage
+                       menu.manageCharacter(character);//on gère le personnage et sous menu interactif
                     }else{
                         System.out.println("Retour au menu principal...");
                     }

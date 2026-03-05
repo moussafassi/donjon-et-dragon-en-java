@@ -7,6 +7,14 @@ import fr.campus.dungeoncrawler.characters.Wizard;
 
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
+    //vérifier la saisie
+    public int readInt(){
+        while(!scanner.hasNextInt()){
+            System.out.println("Veuillez entre un nombre valide! ");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
 
     // affiche le menu principal et retourne le choix
     public int displayMainMenu(){
@@ -14,7 +22,9 @@ public class Menu {
         System.out.println("1 - Nouveau personnage");
         System.out.println("2 - Quitter");
         System.out.print("Votre choix : ");
-        return scanner.nextInt();
+        int choice = readInt();//lit un entier valide
+        scanner.nextLine();// consomme le retour à la ligne
+        return choice;
     }
     //Crée un personnage en demandant le type et le nom
     public Character createCharacter() {
@@ -24,7 +34,7 @@ public class Menu {
             System.out.println("2 - Wizard");
             System.out.println("3 - Quitter");
             System.out.print("Votre choix: ");
-            int typeChoice = scanner.nextInt();
+            int typeChoice = readInt();
             scanner.nextLine();
             if (typeChoice == 3) {
                 System.out.println("Retour au menu principal...");
@@ -50,8 +60,8 @@ public class Menu {
             System.out.println("2 - Modifier le nom");
             System.out.println("3 - Retour au menu principal");
             System.out.print("Votre choix: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readInt();//sécurise la saisie
+            scanner.nextLine();// consomme le retour ligne
             switch (choice){
                 case 1:
                     System.out.println(character);
