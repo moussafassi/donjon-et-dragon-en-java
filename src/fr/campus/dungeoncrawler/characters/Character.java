@@ -1,4 +1,6 @@
 package fr.campus.dungeoncrawler.characters;
+import fr.campus.dungeoncrawler.items.DefensiveEquipement;
+import fr.campus.dungeoncrawler.items.OffensiveEquipement;
 import fr.campus.dungeoncrawler.items.Weapon;
 import fr.campus.dungeoncrawler.items.Potion;
 
@@ -6,15 +8,15 @@ public abstract class Character {
     protected String name;
     protected int healthLevel;
     protected  int attackLevel;
-    protected Weapon weapon;
-    protected Potion potion;
+    protected OffensiveEquipement offensive;
+    protected DefensiveEquipement defensive;
 
-    public Character(String name, int healthLevel, int attackLevel, Weapon weapon, Potion potion){
+    public Character(String name, int healthLevel, int attackLevel, OffensiveEquipement offensive, DefensiveEquipement defensive){
         this.name = name;
         this.healthLevel = healthLevel;
         this.attackLevel = attackLevel;
-        this.weapon = weapon;
-        this.potion = potion;
+        this.offensive = offensive;
+        this.defensive = defensive;
     }
 // Getters
     public String getName() {
@@ -29,12 +31,12 @@ public abstract class Character {
         return attackLevel;
     }
 
-    public Weapon getWeapon() {
-        return weapon;
+    public OffensiveEquipement getOffensive() {
+        return offensive;
     }
 
-    public Potion getPotion() {
-        return potion;
+    public DefensiveEquipement getDefensive() {
+        return defensive;
     }
     //setters
 
@@ -50,18 +52,15 @@ public abstract class Character {
         this.healthLevel = healthLevel;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
+    // méthode abstraite que chaque enfant peut personnaliser
+    public abstract void specialAttack();
 
-    public void setPotion(Potion potion) {
-        this.potion = potion;
-    }
     @Override
     public String toString(){
         return "Character: " + name
-                + "\nHealth: " + healthLevel
-                + "\nAttack: " +weapon
-                + "\nPotion: " + potion;
+                + ",Health: " + healthLevel
+                + ",Strength: " + attackLevel
+                + ",Offensive: " + offensive
+                + ",Defensive: " + defensive;
     }
 }
