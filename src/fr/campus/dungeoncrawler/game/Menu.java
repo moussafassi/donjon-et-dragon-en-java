@@ -20,7 +20,8 @@ public class Menu {
     public int displayMainMenu(){
         System.out.println("===Menu===");
         System.out.println("1 - Nouveau personnage");
-        System.out.println("2 - Quitter");
+        System.out.println("2 - Jouer");
+        System.out.println("3 - Quitter");
         System.out.print("Votre choix : ");
         int choice = readInt();//lit un entier valide
         scanner.nextLine();// consomme le retour à la ligne
