@@ -5,8 +5,20 @@ import fr.campus.dungeoncrawler.characters.Character;
 import fr.campus.dungeoncrawler.characters.Warrior;
 import fr.campus.dungeoncrawler.characters.Wizard;
 
+/**
+ * Classe permettant d'avoir un menu interactif
+ * permet de créer un personnage
+ */
 public class Menu {
+    /**
+     * scanner permet de lire les éntrées utilisateur depuisla consol
+     */
     private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * permet de verifier si l'utilisateur rentre bien une donnée valide.
+     * @return la donnée renter par l'utilisateur
+     */
     //vérifier la saisie
     public int readInt(){
         while(!scanner.hasNextInt()){
@@ -15,6 +27,11 @@ public class Menu {
         }
         return scanner.nextInt();
     }
+
+    /**
+     * affiche le menu principal du jeu
+     * @return une valeur correspondant au chois=x de l'utilisateur
+     */
 
     // affiche le menu principal et retourne le choix
     public int displayMainMenu(){
@@ -27,6 +44,12 @@ public class Menu {
         scanner.nextLine();// consomme le retour à la ligne
         return choice;
     }
+
+    /**
+     * permet de créer un personnage  avec le type et le nom
+     * l'utilisateur peut choisir pour le moment avec warrior ou Wizard
+     * @return le personnage créé ou null si l'utilisateur choist de quitter
+     */
     //Crée un personnage en demandant le type et le nom
     public Character createCharacter() {
         while (true) {
@@ -52,6 +75,11 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * Sous-menu pour gérer un personnage déjà créé
+     * @param character le personnage gérer
+     */
     //sous menu
     public void manageCharacter(Character character){
         boolean managing = true;

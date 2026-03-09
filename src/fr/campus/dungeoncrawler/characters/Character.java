@@ -1,15 +1,26 @@
 package fr.campus.dungeoncrawler.characters;
 import fr.campus.dungeoncrawler.items.DefensiveEquipement;
 import fr.campus.dungeoncrawler.items.OffensiveEquipement;
-import fr.campus.dungeoncrawler.items.Weapon;
-import fr.campus.dungeoncrawler.items.Potion;
 
+/**
+ * Classe abstraite représentant un personnage du jeu
+ * avec c'est caractéristique point de vie, une force et des équipements.
+ */
 public abstract class Character {
     protected String name;
     protected int healthLevel;
     protected  int attackLevel;
     protected OffensiveEquipement offensive;
     protected DefensiveEquipement defensive;
+
+    /**
+     * constructeur du personnage.
+     * @param name Nom du personnage
+     * @param healthLevel Niveau de vie du personnage
+     * @param attackLevel Niveau d'attack
+     * @param offensive Equipement offensive (Weapon ou Spell)
+     * @param defensive Equipement défensive (potion ou shield)
+     */
 
     public Character(String name, int healthLevel, int attackLevel, OffensiveEquipement offensive, DefensiveEquipement defensive){
         this.name = name;
@@ -53,7 +64,17 @@ public abstract class Character {
     }
 
     // méthode abstraite que chaque enfant peut personnaliser
+
+    /**
+     * Méthode abstraite que chaque type de personnage doit implémenter.
+     * permet de réaliser une attaque spéciale
+     */
     public abstract void specialAttack();
+
+    /**
+     * Retourne une représentation textuelle complète du personnage.
+     * @return chaine de caractères décrivant le personnage et ses équipements
+     */
 
     @Override
     public String toString(){
