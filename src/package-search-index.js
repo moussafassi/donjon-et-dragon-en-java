@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.campus.dungeoncrawler.board"},{"l":"fr.campus.dungeoncrawler.characters"},{"l":"fr.campus.dungeoncrawler.exceptions"},{"l":"fr.campus.dungeoncrawler.game"},{"l":"fr.campus.dungeoncrawler.items"},{"l":"fr.campus.dungeoncrawler.utils"}];updateSearchResults();
