@@ -18,6 +18,7 @@ import fr.campus.dungeoncrawler.characters.Character;
 public class Game {
     /** Objet permettant d'afficher les menus et gérer les entrées utilisateur */
     private Menu menu = new Menu();
+    private Character character;
 
     /**
      * Démarre le jeu et affiche le menu principal.
@@ -30,7 +31,7 @@ public class Game {
             int choice = menu.displayMainMenu();
             switch (choice) {
                 case 1:
-                    Character character = menu.createCharacter();
+                    character = menu.createCharacter();
                     if (character != null) {
                         System.out.println("Personnage créé: " + character);
                         menu.manageCharacter(character);//on gère le personnage et sous menu interactif
@@ -39,7 +40,11 @@ public class Game {
                     }
                     break;
                 case 2:
-                    playBoard();
+                    if(character == null){
+                        System.out.println("Vous devez créer un personnage avant de jouer! ");
+                    }else {
+                        playBoard();
+                    }
                     break;
                 case 3:
                     running = false;
@@ -68,14 +73,19 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         int position = 1;
         System.out.println("Début de la partie! ");
-        while (position < board.getSize()) {
+        System.out.println("Personnage: " + character.getName());
+        while (position <= board.getSize()) {
             //affiche la case actuelle et son contenu
             Cell currentCell = board.getCell(position);
             System.out.println("Vous êtes sur la case " + position + "/" + board.getSize());
             System.out.println(currentCell);//polymorphise message selon le type de case
             //Pause avant  le lancement du dé
-            System.out.println("appuyer sur Entrée pour lancer le dé");
-            scanner.nextLine(); // attend que le joueur appuie sur entrée
+            System.out.println("appuyer sur Entrée pour lancer le dé ou taper Q pour quitter: ");
+            String input = scanner.nextLine(); // attend que le joueur appuie sur entrée
+            if (input.equalsIgnoreCase("q")){
+                System.out.println("Vous quittez la partie...");
+                return; // retourne au menu principal
+            }
             int roll = dice.roll();
             System.out.println("Vous lancez le dé et faites: " + roll);
             //Avancer
@@ -96,7 +106,7 @@ public class Game {
         } catch (InterruptedException e) {
         }
     }
-        //le joeur est arrivé au bout
+        //le joueur est arrivé au bout
         System.out.println("Vous êtes arrivé au bout du plateau! ");
         //Choix de rejouer ou revenir au menu principal
         System.out.println("1 - Rejouer");
