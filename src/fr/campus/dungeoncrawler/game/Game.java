@@ -5,10 +5,23 @@ import fr.campus.dungeoncrawler.exceptions.OutOfBoardException;
 import fr.campus.dungeoncrawler.utils.Dice;
 import fr.campus.dungeoncrawler.characters.Character;
 
-
+/**
+ * Classe principale co,tenat la logique du jeu.
+ *
+ *Elle gère :
+ *  - l'affichage du menu principal
+ *  - la création et la gestion des personnages
+ *  - le déroulement de la parties sur plateau
+ */
 
 public class Game {
+    /** Objet permettant d'afficher les menus et gérer les entrées utilisateur */
     private Menu menu = new Menu();
+
+    /**
+     * Démarre le jeu et affiche le menu principal.
+     * la boucle continue tant que le joeur ne choisit pas de quitter.
+     */
 
     public void start() {
         boolean running = true;
@@ -37,6 +50,17 @@ public class Game {
         }
     }
 
+    /**
+     * Lance une partie sur le plateau.
+     *
+     * Le joueur commence à la case 1 et avance en lançant un dé virtuel.
+     * la partie se termine lorsquela dernière case du plateau est atteinte.
+     *
+     * si la position dépasse la dernière case,
+     * une exception{@link OutOfBoardException} est levée puis gérée pour
+     * ramener le personnage sur la derniére case.
+     */
+
     private void playBoard() {
         Board board = new Board();
         Dice dice = new Dice();
@@ -50,7 +74,7 @@ public class Game {
             int roll = dice.roll();
             System.out.println("Vous lancez le dé et faites: " + roll);
             try {
-                position += dice.roll();
+                position += roll;
                 if (position > board.getSize()) {
                     throw new OutOfBoardException("le personnage dépasse la dernière case! ");
                 }
