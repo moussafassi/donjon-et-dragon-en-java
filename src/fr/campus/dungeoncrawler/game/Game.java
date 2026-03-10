@@ -1,6 +1,7 @@
 package fr.campus.dungeoncrawler.game;
 import java.util.Scanner;
 import fr.campus.dungeoncrawler.board.Board;
+import fr.campus.dungeoncrawler.board.Cell;
 import fr.campus.dungeoncrawler.exceptions.OutOfBoardException;
 import fr.campus.dungeoncrawler.utils.Dice;
 import fr.campus.dungeoncrawler.characters.Character;
@@ -68,13 +69,19 @@ public class Game {
         int position = 1;
         System.out.println("Début de la partie! ");
         while (position < board.getSize()) {
+            //affiche la case actuelle et son contenu
+            Cell currentCell = board.getCell(position);
             System.out.println("Vous êtes sur la case " + position + "/" + board.getSize());
+            System.out.println(currentCell);//polymorphise message selon le type de case
+            //Pause avant  le lancement du dé
             System.out.println("appuyer sur Entrée pour lancer le dé");
             scanner.nextLine(); // attend que le joueur appuie sur entrée
             int roll = dice.roll();
             System.out.println("Vous lancez le dé et faites: " + roll);
+            //Avancer
+            position += roll;
             try {
-                position += roll;
+
                 if (position > board.getSize()) {
                     throw new OutOfBoardException("le personnage dépasse la dernière case! ");
                 }
@@ -89,14 +96,16 @@ public class Game {
         } catch (InterruptedException e) {
         }
     }
+        //le joeur est arrivé au bout
         System.out.println("Vous êtes arrivé au bout du plateau! ");
+        //Choix de rejouer ou revenir au menu principal
         System.out.println("1 - Rejouer");
         System.out.println("2 - Retour au menu principal");
         System.out.print("votre choix: ");
 
     int choice = menu.readInt();
+    scanner.nextLine();// consomme le retour à la ligne
         if(choice ==1)
-
     {
         playBoard();
         ;// relance la partie
