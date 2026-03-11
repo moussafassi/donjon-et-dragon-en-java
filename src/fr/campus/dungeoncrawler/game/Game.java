@@ -2,10 +2,15 @@ package fr.campus.dungeoncrawler.game;
 import java.util.Scanner;
 import fr.campus.dungeoncrawler.board.Board;
 import fr.campus.dungeoncrawler.board.Cell;
+import fr.campus.dungeoncrawler.board.PotionCell;
+import fr.campus.dungeoncrawler.board.WeaponCell;
 import fr.campus.dungeoncrawler.exceptions.OutOfBoardException;
+import fr.campus.dungeoncrawler.items.Potion;
+import fr.campus.dungeoncrawler.items.Weapon;
 import fr.campus.dungeoncrawler.utils.Dice;
 import fr.campus.dungeoncrawler.characters.Character;
-
+import fr.campus.dungeoncrawler.board.WeaponCell;
+import fr.campus.dungeoncrawler.board.PotionCell;
 /**
  * Classe principale co,tenat la logique du jeu.
  *
@@ -73,18 +78,57 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         int position = 1;
         System.out.println("Début de la partie! ");
-        System.out.println("Personnage: " + character.getName());
-        while (position <= board.getSize()) {
+        System.out.println("\n=====Personnage=====" );
+        System.out.println(character);
+        System.out.println("=======================");
+
+        while (position < board.getSize()) {
+            // affiche le personnage
+            System.out.println("\n=====Personnage=====" );
+            System.out.println(character);
+            System.out.println("=======================");
             //affiche la case actuelle et son contenu
             Cell currentCell = board.getCell(position);
             System.out.println("Vous êtes sur la case " + position + "/" + board.getSize());
             System.out.println(currentCell);//polymorphise message selon le type de case
+           //changement d'arme si on trouve mieux
+            if(currentCell instanceof WeaponCell){
+                WeaponCell weaponCell =(WeaponCell) currentCell;
+                Weapon foundWeapon = weaponCell.getWeapon();
+                System.out.println("Vous trouvez: " + foundWeapon);
+                if(foundWeapon.getAttackLevel() > character.getAttackLevel()){
+                    System.out.println("Vous équipez la nouvelle arme! ");
+                    character.setOffensive(foundWeapon);
+                } else {
+                    System.out.println("Votre arme actuelle est meilleure.");
+                }
+            }
+            //stokage de la potion dans l'inventaire quand on en trouve une
+            if(currentCell instanceof PotionCell){
+                PotionCell potionCell =(PotionCell) currentCell;
+                Potion foundPotion = potionCell.getPotion();
+                System.out.println("Vous trouvez une potion! ");
+                character.addPotion(foundPotion);
+                character.showInventory();
+            }
+
+
             //Pause avant  le lancement du dé
-            System.out.println("appuyer sur Entrée pour lancer le dé ou taper Q pour quitter: ");
+            System.out.println("\nQue voulez vous faire? ");
+            System.out.println("1- lancer le dé");
+            System.out.println("2- Voir l'inventaire");
+            System.out.println("3- Quitter la partie");
             String input = scanner.nextLine(); // attend que le joueur appuie sur entrée
-            if (input.equalsIgnoreCase("q")){
+            if(input.equals("2")){
+                character.showInventory();
+                continue;
+            }
+            if (input.equals("3")){
                 System.out.println("Vous quittez la partie...");
                 return; // retourne au menu principal
+            }
+            if(!input.equals("1")){
+                continue;
             }
             int roll = dice.roll();
             System.out.println("Vous lancez le dé et faites: " + roll);

@@ -1,6 +1,9 @@
 package fr.campus.dungeoncrawler.characters;
 import fr.campus.dungeoncrawler.items.DefensiveEquipement;
 import fr.campus.dungeoncrawler.items.OffensiveEquipement;
+import fr.campus.dungeoncrawler.items.Potion;
+
+import java.util.ArrayList;
 
 /**
  * Classe abstraite représentant un personnage du jeu
@@ -12,6 +15,7 @@ public abstract class Character {
     protected  int attackLevel;
     protected OffensiveEquipement offensive;
     protected DefensiveEquipement defensive;
+    protected ArrayList<Potion> inventory = new ArrayList<>();
 
     /**
      * constructeur du personnage.
@@ -28,6 +32,20 @@ public abstract class Character {
         this.attackLevel = attackLevel;
         this.offensive = offensive;
         this.defensive = defensive;
+    }
+    public void addPotion(Potion potion){
+        inventory.add(potion);
+        System.out.println("Potion ajoutée à l'inventaire! ");
+    }
+    public void showInventory(){
+
+        System.out.println("Inventaire: ");
+        for(int i = 0; i < inventory.size(); i++){
+            System.out.println((i+1) + " - " + inventory.get(i));
+        }
+        if(inventory.isEmpty()){
+            System.out.println("Inventaire vide");
+        }
     }
 // Getters
     public String getName() {
@@ -63,6 +81,9 @@ public abstract class Character {
         this.healthLevel = healthLevel;
     }
 
+    public void setOffensive(OffensiveEquipement offensive) {
+        this.offensive = offensive;
+    }
     // méthode abstraite que chaque enfant peut personnaliser
 
     /**

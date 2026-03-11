@@ -21,6 +21,9 @@ public class WeaponCell extends Cell{
         super(position);
         this.weapon = weapon;
     }
+    public Weapon getWeapon(){
+        return weapon;
+    }
 
     /**
      * Retourne de manière textuelle ce que contient la case

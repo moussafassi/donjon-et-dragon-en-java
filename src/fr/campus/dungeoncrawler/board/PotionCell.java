@@ -20,6 +20,9 @@ public class PotionCell extends Cell{
         super(position);
         this.potion = potion;
     }
+    public Potion getPotion(){
+        return potion;
+    }
 
     /**
      * Retourne de manière textuelle ce que contient la case
