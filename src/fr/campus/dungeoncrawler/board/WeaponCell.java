@@ -21,6 +21,11 @@ public class WeaponCell extends Cell{
         super(position);
         this.weapon = weapon;
     }
+
+    /**
+     * constructeur de l'arme
+     * @return retourne l'arme
+     */
     public Weapon getWeapon(){
         return weapon;
     }

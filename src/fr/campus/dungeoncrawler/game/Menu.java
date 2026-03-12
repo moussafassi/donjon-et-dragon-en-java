@@ -83,15 +83,17 @@ public class Menu {
     //sous menu
     public void manageCharacter(Character character){
         boolean managing = true;
-        while (managing){
+        boolean playNow = true;
+        while (managing) {
             System.out.println("\n===Gérer le personnage ===");
             System.out.println("1 - Afficher toute les infos");
             System.out.println("2 - Modifier le nom");
-            System.out.println("3 - Retour au menu principal");
+            System.out.println("3 - jouer");
+            System.out.println("4 - Retour au menu principal");
             System.out.print("Votre choix: ");
             int choice = readInt();//sécurise la saisie
             scanner.nextLine();// consomme le retour ligne
-            switch (choice){
+            switch (choice) {
                 case 1:
                     System.out.println(character);
                     break;
@@ -102,12 +104,19 @@ public class Menu {
                     System.out.println("Nom modifié");
                     break;
                 case 3:
+                    playNow = true;
+                    managing = false;
+                    break;
+                case 4:
                     managing = false;
                     break;
                 default:
                     System.out.println(("Choix invalide !"));
             }
+            return playNow;
+
         }
+
     }
 }
 

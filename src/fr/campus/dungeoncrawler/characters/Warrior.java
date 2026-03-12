@@ -3,7 +3,7 @@ import fr.campus.dungeoncrawler.items.Weapon;
 import fr.campus.dungeoncrawler.items.Shield;
 
 /**
- * Claase représentant un Guerrier(warrior)
+ * Classe représentant un Guerrier(warrior)
  * Hérite de character et a un équipement offensif physique
  */
 public class Warrior extends Character{
@@ -13,7 +13,7 @@ public class Warrior extends Character{
      */
     public Warrior(String name){
         super(name, 25,15,
-                new Weapon("Sword", 10),
+                new Weapon("Sword", 5,1, "warrior"),
                 new Shield("Bouclier",5));
 
     }

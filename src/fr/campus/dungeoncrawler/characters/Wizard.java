@@ -14,8 +14,9 @@ public class Wizard extends Character{
      */
     public Wizard(String name){
         super(name,15, 20,
-                new Spell("Boule de feu", 15),
-                new Potion("Mana Potion", 10));
+                new Spell("Boule de feu", 10, "wizard"),
+                new Potion("Mana Potion", 15,0));
+
     }
 
     /**

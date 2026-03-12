@@ -1,11 +1,10 @@
 package fr.campus.dungeoncrawler.game;
 import java.util.Scanner;
-import fr.campus.dungeoncrawler.board.Board;
-import fr.campus.dungeoncrawler.board.Cell;
-import fr.campus.dungeoncrawler.board.PotionCell;
-import fr.campus.dungeoncrawler.board.WeaponCell;
+
+import fr.campus.dungeoncrawler.board.*;
 import fr.campus.dungeoncrawler.exceptions.OutOfBoardException;
 import fr.campus.dungeoncrawler.items.Potion;
+import fr.campus.dungeoncrawler.items.Spell;
 import fr.campus.dungeoncrawler.items.Weapon;
 import fr.campus.dungeoncrawler.utils.Dice;
 import fr.campus.dungeoncrawler.characters.Character;
@@ -38,8 +37,11 @@ public class Game {
                 case 1:
                     character = menu.createCharacter();
                     if (character != null) {
-                        System.out.println("Personnage créé: " + character);
-                        menu.manageCharacter(character);//on gère le personnage et sous menu interactif
+                        boolean playNow = menu.manageCharacter(character);
+                        if(playNow){
+                            playBoard();
+                        }
+
                     } else {
                         System.out.println("Retour au menu principal...");
                     }
@@ -78,9 +80,6 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         int position = 1;
         System.out.println("Début de la partie! ");
-        System.out.println("\n=====Personnage=====" );
-        System.out.println(character);
-        System.out.println("=======================");
 
         while (position < board.getSize()) {
             // affiche le personnage
@@ -92,17 +91,41 @@ public class Game {
             System.out.println("Vous êtes sur la case " + position + "/" + board.getSize());
             System.out.println(currentCell);//polymorphise message selon le type de case
            //changement d'arme si on trouve mieux
-            if(currentCell instanceof WeaponCell){
-                WeaponCell weaponCell =(WeaponCell) currentCell;
+            if(currentCell instanceof WeaponCell) {
+                WeaponCell weaponCell = (WeaponCell) currentCell;
                 Weapon foundWeapon = weaponCell.getWeapon();
                 System.out.println("Vous trouvez: " + foundWeapon);
-                if(foundWeapon.getAttackLevel() > character.getAttackLevel()){
+                if (foundWeapon.getAllowedClass().equalsIgnoreCase(character.getClass().getSimpleName())) {
+
+
+                if (foundWeapon.getAttackLevel() > character.getAttackLevel()) {
                     System.out.println("Vous équipez la nouvelle arme! ");
                     character.setOffensive(foundWeapon);
                 } else {
                     System.out.println("Votre arme actuelle est meilleure.");
                 }
+                } else {
+                System.out.println("Vous avez trouvé " + foundWeapon + " mais votre personnage ne peut l'utiliser.");
             }
+        }
+            // changement de sort si on trouve mieux
+            if(currentCell instanceof SpellCell){
+                SpellCell spellCell = (SpellCell) currentCell;
+                Spell foundSpell = spellCell.getSpell();
+                System.out.println("Vous trouvez: " + foundSpell);
+                if(foundSpell.getAllowedClass().equalsIgnoreCase(character.getClass().getSimpleName())){
+
+                    if (foundSpell.getAttackLevel() > character.getAttackLevel()){
+                       System.out.println("Vous apprennez un nouveau sort! ");
+                       character.setOffensive(foundSpell);
+                    }else{
+                        System.out.println("Vous connaissez déjà se sort");
+                    }
+                }else{
+                   System.out.println("Vous avez trouvé " + foundSpell + "mais vous n'étes pas un Wizard dommage!");
+                }
+            }
+
             //stokage de la potion dans l'inventaire quand on en trouve une
             if(currentCell instanceof PotionCell){
                 PotionCell potionCell =(PotionCell) currentCell;
